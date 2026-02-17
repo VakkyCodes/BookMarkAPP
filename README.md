@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Smart Bookmark App
 
-## Getting Started
+A simple, secure bookmark manager built with Next.js, Supabase (Auth, Database, Realtime), and Tailwind CSS.
+Features:
+- **Authentication**: Sign in/up with Google only.
+- **Bookmarks**: Add bookmarks with Title and URL.
+- **Private**: Users can only see their own bookmarks (RLS enforced).
+- **Real-time**: Bookmark list updates instantly without refresh if modified in another tab/session.
+- **Live Deployment**: Deployed on Vercel.
 
-First, run the development server:
+## Tech Stack
+- **Frontend**: Next.js 14 (App Router)
+- **Backend/DB**: Supabase (PostgreSQL)
+- **Styling**: Tailwind CSS
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Setup & Run Locally
+1. Clone repo: `git clone <repo-url>`
+2. Install deps: `npm install`
+3. Create `.env.local` with your Supabase keys:
+    ```bash
+    NEXT_PUBLIC_SUPABASE_URL=your-project-url
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+    ```
+4. Run: `npm run dev`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Challenges & Solutions
+- **Realtime**: Used Supabase Realtime subscription (`channel().on('postgres_changes')`) to listen for INSERT/DELETE events and update the state instantly.
+- **RLS**: Configured Row Level Security policies in SQL to ensure strict data privacy for authenticated users.
